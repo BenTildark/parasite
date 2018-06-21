@@ -1,0 +1,7 @@
+<%= form_tag follow_links_path, id: "follow-links-form", remote: true, :method => 'get' do %>
+	<span style="display:none"><%= text_field_tag :follow_link, params[:follow_link], id: "follow-links-input" %></span>
+	<%= submit_tag "Follow links", :name => nil, id: "follow-links-btn" %>
+<% end %>
+<script type="text/javascript">
+	$('#follow-links-btn').button();
+</script>

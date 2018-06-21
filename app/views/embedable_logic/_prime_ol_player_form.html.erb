@@ -1,0 +1,6 @@
+<%= form_tag prime_openload_player_path, id: "prime-openload-player-form", remote: true, :method => 'get' do %>
+	<span style="display:none">
+		<%= text_field_tag :prime_openload_url, params[:prime_openload_url], id: "prime-openload-player-input" %>
+		<%= submit_tag "embed pol player", :name => nil, id: "prime-openload-player-btn" %>
+	</span>
+<% end %>

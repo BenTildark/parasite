@@ -1,0 +1,15 @@
+<%= form_tag dupes_path, id: "duplicates-form", remote: true, :method => 'get' do %>
+	<%= submit_tag "rake duplicates", :name => nil, id: "duplicates-btn" %>
+<% end %>
+
+<script>
+	$(document).ready(function() {
+		setInterval(rake_dupes, 3600000);
+		function rake_dupes() {
+			var hour = new Date().getHours();
+			if(hour === "9") {
+				$('#duplicates-btn').click();
+			}
+		}
+	});
+</script>

@@ -1,0 +1,145 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require foundation_and_overrides
+ *= require 'masonry/transitions'
+ *= require_self
+ *= require_tree .
+ *= require jquery-ui.min.css.scss
+ */
+
+#tag_cloud {
+  padding: 40px;
+  margin: 0px 0 80px 0;
+  line-height: 1.6em;
+  .s {
+    background-color: #565656;
+    font-size: 1em;
+    padding: 1px;
+    margin: 4px;
+    color: #b7b7b7;
+    letter-spacing: 0.3px;
+    border-radius: 2px;  
+  }
+  .m {
+    background-color: #6093d2;
+    font-size: 1.4em;
+    color: #334;
+    border-radius: 2px;
+    letter-spacing: 0.3px;
+    &:hover {
+      color: #f6f6f6;
+    }  
+  }
+  .l {
+    background-color: #d4a02d;
+    font-size: 2em;
+    color: #334;
+    margin: 0px 0px 2px 0px;
+    border-radius: 2px;
+    letter-spacing: 0.3px;
+    &:hover {
+      color: #f6f6f6;
+    } 
+  }
+} 
+
+#authContainer {
+  width: 30%;
+  margin: 20px auto 20px auto;
+  background-color: #696969;
+  padding: 20px 40px;
+  border: solid 1px #687df2b3;
+  text-align: center;
+}
+
+// #new_user {
+//   width: 80%;
+//   margin: 0 auto;
+//   background-color: #FFF;
+//   padding: 20px 40px;
+//   border: solid 1px black;
+//   margin-top: -5px;
+//   margin-bottom: 100px;
+// }
+
+#sign_up {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #FFF;
+  padding: 20px 40px;
+  border: solid 1px black;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+#log_in {
+  width: 80%;
+  margin: 0 auto;
+  background-color: #FFF;
+  padding: 20px 40px;
+  border: solid 1px black;
+  margin-top: 50px;
+  margin-bottom: 100px;
+}
+
+#flash_notice, #flash_error, #flash_alert {
+  padding: 5px 8px;
+  margin: 10px 0;
+  width: 400px;
+}
+
+#flash_notice {
+  background-color: #CFC;
+  border: solid 1px #6C6;
+}
+
+#flash_error, #flash_alert {
+  background-color: #FCC;
+  border: solid 1px #C66;
+}
+
+.field_with_errors {
+  display: inline;
+}
+
+.error_messages {
+  width: 400px;
+  border: 2px solid #CF0000;
+  padding: 0px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  font-size: 12px;
+}
+
+.error_messages h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 10px;
+  font-size: 12px;
+  margin: 0;
+  background-color: #c00;
+  color: #fff;
+}
+
+.error_messages p {
+  margin: 8px 10px;
+}
+
+.error_messages ul {
+  margin-bottom: 0;
+}
+
+form .field, form .actions {
+  margin: 12px 0;
+}

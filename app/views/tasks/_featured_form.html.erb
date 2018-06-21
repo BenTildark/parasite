@@ -1,0 +1,15 @@
+<%= form_tag featured_path, id: "featured-form", remote: true, :method => 'get' do %>
+	<%= submit_tag "rake featured", :name => nil, id: "featured-btn" %>
+<% end %>
+
+<script>
+	$(document).ready(function() {
+		setInterval(rake_featured, 3600000);
+		function rake_featured() {
+			var hour = new Date().getHours();
+			if(hour === "8") { // second to last task
+				$('#featured-btn').click();
+			}
+		}
+	});
+</script>

@@ -1,0 +1,26 @@
+<div id="log_in">
+	<h1 class="form-title marvel">Log In</h1>
+	<%= form_tag sessions_path do %>
+	  <div class="field">
+	    <%= label_tag :email %>
+	    <%= text_field_tag :email, params[:email] %>
+	  </div>
+	  <div class="field">
+	    <%= label_tag :password %>
+	    <%= password_field_tag :password %>
+	  </div>
+	  <div class="field">
+	    <%= recaptcha_tags %>
+	  </div>
+	  <div class="actions"><%= submit_tag "Log In", class: "sub" %></div>
+	<% end %>
+</div>
+
+<script>
+  $(document).ready(function() {
+    var pathname = window.location.pathname;   
+    if ( pathname == "/login" ) {
+      $('#login-btn').hide(); 
+    }    
+  });
+</script>

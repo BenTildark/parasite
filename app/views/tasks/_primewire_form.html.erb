@@ -1,0 +1,15 @@
+<%= form_tag primewire_path, id: "primewire-form", remote: true, :method => 'get' do %>
+	<%= submit_tag "rake primewire", :name => nil, id: "primewire-btn" %>
+<% end %>
+
+<script>
+	$(document).ready(function() {
+		setInterval(rake_primewire, 3600000);
+		function rake_primewire() {
+			var hour = new Date().getHours();
+			if(hour === "4") {
+				$('#primewire-btn').click();
+			}
+		}
+	});
+</script>

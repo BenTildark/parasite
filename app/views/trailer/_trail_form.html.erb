@@ -1,0 +1,4 @@
+<%= form_tag trailer_path, id: "trail-form", remote: true, :method => 'get' do %>
+	<%= text_field_tag :embed, params[:embed], id: "embed-field", placeholder: "Search Youtube" %>
+	<%= submit_tag "Trailer", :name => nil, id: "embed-btn" %>
+<% end %>

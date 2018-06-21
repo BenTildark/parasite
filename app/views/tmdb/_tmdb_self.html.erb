@@ -1,0 +1,47 @@
+<p>
+  <% if @year_m.present? %>
+    <strong>Released:</strong>
+    <span class="marvel"><%= @year_m %></span>
+  <% elsif @year_t.present? %>
+    <strong>Aired:</strong>
+    <span class="marvel"><%= @year_t %></span>
+  <% end %>
+</p>
+<strong>Description</strong>
+<p>
+  <% if @description.present? %>  
+    <span class="marvel"><%= @description %></span>
+  <% else %>
+    <span class="unavailable e_desc"> -?-</span>
+  <% end %>
+</p>
+<p>
+  <strong>Runtime:</strong>
+  <% if @run_time.present? %>
+    <span class="marvel"><%= @run_time %> minutes</span>
+  <% else %>
+    <span class="unavailable e_runtime"> -?-</span>
+  <% end %>
+</p>
+<p>
+  <strong>Rating:</strong>
+  <span class="marvel"><%= @rating if @rating %> / 10</span>
+</p>
+<p>
+  <strong>Staring:</strong>
+  <% if @lead_actor_name.present? %>
+    <span class="marvel"><%= @lead_actor_name %></span>
+  <% else %>
+    <span class="unavailable e_name"> -?-</span>
+  <% end %>
+  <% if @lead_char_name.present? %>
+    <span class="marvel">as <%= @lead_char_name %></span>
+  <% else %>
+    <span class="unavailable e_char"> -?-</span>
+  <% end %>
+  <% if @lead_act_img_url.present? %>
+    <% if @lead_act_img_url =~ /.jpg/ %>
+      <%= image_tag(@lead_act_img_url, class: "star-img") %>
+    <% end %>
+  <% end %>
+</p>

@@ -1,0 +1,4 @@
+<%= form_tag wf2_embed_player_path, id: "wf2-embed-player-form", remote: true, :method => 'get' do %>
+	<span style="display:none"><%= text_field_tag :wf2_embed_url, params[:wf2_embed_url], id: "wf2-embed-url-input" %></span>
+	<%= submit_tag "Embed this video", :name => nil, id: "wf2-player-embed-btn" %>
+<% end %>

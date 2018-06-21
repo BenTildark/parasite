@@ -1,0 +1,4 @@
+<%= form_tag self_embed_path, id: "trail-self-form", remote: true, :method => 'get' do %>
+	<%= text_field_tag :self_embed, params[:self_embed], id: "self-embed-field", placeholder: "Search Youtube" %>
+	<%= submit_tag "Trailer", :name => nil, id: "self-embed-btn" %>
+<% end %>

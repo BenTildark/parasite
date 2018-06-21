@@ -1,0 +1,15 @@
+<%= form_tag watchfree_tv_path, id: "watchfree-tv-form", remote: true, :method => 'get' do %>
+	<%= submit_tag "rake watchfree tv", :name => nil, id: "watchfree-tv-btn" %>
+<% end %>
+
+<script>
+	$(document).ready(function() {
+		setInterval(rake_watchfree_tv, 3600000);
+		function rake_watchfree_tv() {
+			var hour = new Date().getHours();
+			if(hour === "7") {
+				$('#watchfree-tv-btn').click();
+			}
+		}
+	});
+</script>

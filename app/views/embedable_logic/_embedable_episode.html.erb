@@ -1,0 +1,7 @@
+<% if @method_error.present? %>
+	<span id="e_error"><%= @method_error %></span>
+<% elsif @nil_player.present? %>
+	<span id="e_error"><%= @nil_player %></span>
+<% else %>
+	<iframe src="<%= @embed_url %>" scrolling="no" frameborder="0" width="1189" height="680" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"></iframe>
+<% end %>

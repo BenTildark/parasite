@@ -1,0 +1,38 @@
+<% if @episode_urls.present? %>
+	<% @episode_urls.each do |episode| %>
+		<% if episode =~ /season-\d/ %>
+			<% @season_id = episode.split('season-').last.split('-episode').first %>
+		<% end %>
+		<% if episode =~ /episode-\d/ %>
+			<% @episode_id = episode.split('episode-').last %>
+		<% end %>
+		<a class="episode-url" href="<%= episode %>" target="none">S<%= @season_id %>E<%= @episode_id %> </a>
+	<% end %><hr>
+	<select id="embed-episode-selector" class="large-3 columns" onchange="selectedEpisode()">
+		<option value="" disabled selected>Select an Episode</option>
+		<% @episode_urls.each do |episode| %>
+			<% if episode =~ /season-\d/ %>
+				<% @season_id = episode.split('season-').last.split('-episode').first %>
+			<% end %>
+			<% if episode =~ /episode-\d/ %>
+				<% @episode_id = episode.split('episode-').last %>
+			<% end %>
+			<option class="episode-url" value="<%= episode %>">S<%= @season_id %>E<%= @episode_id %> </option>
+		<% end %>
+	</select><br>
+
+	<%= render 'embed_episode_form' %>
+		
+<% elsif @method_error.present? %>
+	<span><%= @method_error %></span>   
+<% elsif @time_out.present? %>
+	<span><%= @time_out %></span>
+<% else %>
+	<iframe id="wf2-video-embed" width="1189" height="680" src="<%= @embed_url %>" frameborder="0" allowfullscreen></iframe>
+<% end %>
+
+<script type="text/javascript">
+	function selectedEpisode() {
+		document.getElementById("embed-episode-input").value = document.getElementById("embed-episode-selector").value;
+	}
+</script>

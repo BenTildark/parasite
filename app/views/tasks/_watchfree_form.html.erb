@@ -1,0 +1,15 @@
+<%= form_tag watchfree_path, id: "watchfree-form", remote: true, :method => 'get' do %>
+	<%= submit_tag "rake watchfree", :name => nil, id: "watchfree-btn" %>
+<% end %>
+
+<script>
+	$(document).ready(function() {
+		setInterval(rake_watchfree, 3600000);
+		function rake_watchfree() {
+			var hour = new Date().getHours();
+			if(hour === "6") {
+				$('#watchfree-btn').click();
+			}
+		}
+	});
+</script>

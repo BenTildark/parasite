@@ -1,0 +1,25 @@
+<br>
+<div id="tag-search">
+    <ul class="menu"><%= render 'videos/search_tag_form' %></ul>    
+</div>
+<div id="tag_cloud"><hr>
+	<% tag_cloud(@tags, %w[s m l]) do |tag, css_class| %>
+	    <%= link_to tag.name + '(' + tag.count.to_s + ')', tag_path(tag.name), class: css_class %>
+	<% end %><br>
+	<hr>
+	<div id="pagination">
+	    <%= will_paginate @tags %>
+	</div><br>	
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	  	$(".s").hover(function(){
+	      	var r = Math.floor(Math.random() * 255);
+	      	var g = Math.floor(Math.random() * 255);
+	      	var b = Math.floor(Math.random() * 255);
+	      	var color = "rgb("+r+","+g+","+b+")"
+	      	$(this).css("color", color);
+	  	});
+	});
+</script>

@@ -1,0 +1,518 @@
+@import "font-awesome"; 
+
+html,
+body {
+  height: 100%;
+  /* The html and body elements cannot have any padding or margin. */
+}
+
+body {
+  background-color: #414040;
+	overflow-y: scroll;
+	overflow-x: hidden; 
+}
+
+a {
+  outline: 0;
+  color: #515557;
+}
+
+.fat {
+  font-family: 'Sigmar One', cursive;
+}
+
+.anton {
+  font-family: 'Anton', sans-serif;
+}
+
+.marvel {
+  font-family: 'Marvel', sans-serif;
+  font-weight: 600;
+  letter-spacing: .2px;
+}
+
+.ui-helper-hidden-accessible {
+  display: none !important;
+}
+
+.trail-menu {
+  max-height: 500px;
+  overflow: auto;
+}
+
+#wrap {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  /* Negative indent footer by it's height */
+  margin: 0 auto -300px;
+}
+
+.search-cursor {
+  cursor: url("https://cdn4.iconfinder.com/data/icons/32x32-free-design-icons/32/Zoom.png"), auto !important;
+}
+
+.movie-cursor {
+  cursor: url("https://cdn4.iconfinder.com/data/icons/32x32-free-design-icons/32/Movie.png"), auto;
+}
+
+// Navbar-top =========================================
+
+// Title section
+
+#logo {
+  margin-top: -10px;
+  position: absolute;
+}
+
+#logo-180 {
+  margin-top: -10px;
+  position: absolute;
+}
+
+#site-title {
+  margin-left: 55px;
+}
+
+#first {
+  font-size: 25px;
+  line-height: 2px;
+} 
+
+#second {
+  font-size: 28px;
+  line-height: 0px;
+  color: #41a6ff;
+}
+
+#third {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: rgb(68, 68, 68);
+  position: absolute;
+  font-size: 15px;
+  text-align: center;
+  color: #0fff00;
+}
+
+.bottom-shadow {
+  -webkit-box-shadow: 0 8px 6px -6px black;
+     -moz-box-shadow: 0 8px 6px -6px black;
+          box-shadow: 0 8px 6px -6px black;
+}
+
+// override foundation styles
+
+.top-bar-left {
+  float: left;
+  margin-left: 15px;
+  font-weight: 600;
+}
+
+.is-dropdown-submenu {
+  border: none;
+  .ui-widget-content a {
+    color: #999;
+    padding: 7px;
+    font-weight: 600;
+    &:hover {
+      color: #fff;
+    }
+  }
+}
+// search-input-title
+.top-bar input {
+  max-width: 230px;
+  margin-right: 5rem;
+}
+@media (min-width: 1110px) {
+  #videos-search {
+    position: relative;
+    right: 85px;
+  }
+  .search-btn {
+    //position: relative;
+    font-size: 15px !important;
+    right: -73px;
+    height: 39px;
+    position: absolute !important;
+    top: 7px;
+  }
+}
+
+//search-input-tag
+#tag-search {
+  width: 620px;
+  margin: 25px 25% 0 25%;
+  #tag-search-input {
+    padding-right: 10em;
+  }
+  .search-tags-btn {
+    float: right;
+    margin-top: -40px;
+  }
+}
+
+//search input autocomplete styles
+ul.ui-autocomplete { 
+  position: absolute;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border: solid 1px #999;
+  cursor: default;
+  max-width: 350px;
+  max-height: 480px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  li {
+    background: #111 image-url("ui-bg_gloss-wave_20_111111_500x100.png") 50% top repeat-x;
+    color: #999;
+    border: solid 1px #333 !important;
+    outline: 0;
+    font-size: 19px;
+    font-weight: 600;
+    width: 350px;
+  }
+  li.ui-menu-item {
+    padding: 5px !important;
+  }
+}
+.ui-menu-item-wrapper {
+  max-width: 340px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// Videos/index ========================================
+
+#featured-content-title {
+  padding-left: 30px;
+  line-height: 1px;
+  margin-top: 40px;
+  font-weight: 700;
+  font-style: oblique;
+}
+
+#featured-videos {
+  height: 500px;
+  overflow: auto;
+  border: solid 1px #ddd;
+  border-radius: 5px;
+  background-color: #606060;
+  margin: 25px 0 25px 0;
+}
+
+#main-content-title {
+  text-align: center;
+  font-weight: 700;
+  font-size: xx-large;
+}
+
+.box {
+	background: #d5d5d5;
+	border-radius: 2px;
+	padding: 2px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #c8ab46;
+	.video-body {
+	  padding: 0 10px 0 10px;
+    .title {
+      letter-spacing: .2px;
+      color: #000c;
+    }
+	}
+	p.genre {
+		font-weight: 700;
+    font-size: 17px;
+	}
+}
+
+#pagination {
+	text-align: center;
+}
+
+.pagination a, .pagination button {
+  display: inline !important;
+}
+
+// Videos show ==========================================
+
+#e_error {
+  position: absolute;
+  margin: 12px 0 0 1px;
+  background-color: #fb643b;
+  padding: 0 12px 0 9px;
+}
+
+#episode-embed-btn {
+  margin-top: -23px;
+  position: absolute;
+  padding: 7px;
+}
+
+.player-section {
+  background-color: #aeaeae;
+  border-radius: 5px;
+  padding: 5px;
+  margin-bottom: 40px;
+}
+
+#player-embed-btn {
+  border-color: #0093ff;
+  font-size: 12px;
+  margin: 5px 0 10px 0;
+}
+#wf2-player-embed-btn {
+  border-color: #0093ff;
+  font-size: 12px;
+  margin: 5px 0 10px 0;
+}
+
+.links-section {
+  text-align: left;
+  margin-bottom: 10px;
+}
+
+#follow-links-btn {
+  font-size: 17px;
+}
+
+#j-init {
+  font-size: 12px;
+}
+
+.embed-url {
+  font-size: 19px;
+  margin-bottom: 2px;
+}
+
+.show-wrapper {
+  margin-top: 60px;
+}
+
+#show-tags a {
+  color: #efefef;
+}
+
+.video-img-show {
+  width: 220px;
+  height: 315px;
+}
+
+.yt-player-trailer {
+  text-align: center;  
+}
+
+#wrong {
+  margin: 2px 0 12px 0;
+  height: 20px;
+  width: 75px;
+  #trail {
+    height: 20px;
+    width: 20px;
+  }
+  #video-data {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+#self_form {
+  margin-bottom: 20px;
+}
+
+#self-embed-btn {
+  border-color: #0093ff;
+  font-size: 12px;
+}
+
+#tmdb-self-form {
+  margin-bottom: 10px;
+}
+
+#self-tmdb-btn {
+  border-color: #0093ff;
+  font-size: 12px;
+} 
+
+.video-body-section {
+  color: #efefef;
+  text-align: left;
+  padding: 4px;
+}
+
+.star-img {
+  border-radius: 50%;
+  margin-left: 20px;
+  border-style: solid;
+}
+
+#embed-trailer {
+  height: 315px;
+  background-color: #aeaeae;
+  border-radius: 5px;
+}
+
+.loading i {
+  position: relative;
+  top: calc(50% - 10px);
+}
+
+.button.site-link {
+  width: 300px;
+  margin: 0px;
+  height: 60px;
+  font-size: 21px;
+  font-weight: 600;
+}
+
+
+
+#suggestions-title {
+  text-align: center;
+  line-height: 30px;
+}
+
+@media (min-width: 1110px) {
+  .video-img {
+    text-align: center;
+    background-color: #d5d5d5;
+    padding: 35px;
+  }
+  .suggestions {
+    background-color: #d5d5d5;
+    height: 1100px;
+    overflow: auto;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+}
+
+// Google custom search styles ==========================
+
+.gcs {
+  margin-top: 60px;
+  background-color: #d9d9d9; 
+  padding: 2rem;
+}
+
+.panel {
+  position: relative;
+  text-align: center;
+  border-radius: 0;
+  background-color: #d9d9d9;
+  padding-bottom: 60px;
+  margin-bottom: 60px;
+}
+
+.gsc-input-box {
+  border: 1px solid #D9D9D9 !important;
+  background: #bf3f3f !important;
+  height: 23px !important;
+  td {
+    padding: 0.5rem 0 0.625rem;
+  }
+}
+
+.gsib_a {
+  padding: 0 !important;
+  #gsc-i-id1 {
+    height: 20px !important;
+  }
+}
+
+.gsst_a {
+  display: none !important;
+}
+
+.gsst_b {
+  padding: 0px !important;
+}
+
+.gsc-search-button input {
+  width: auto !important;
+  height: 24px !important; 
+}
+
+#site-screenshot img {
+  -webkit-filter: grayscale(1);
+  cursor: pointer;
+  transition: .5s ease;
+  &:hover {
+    -webkit-filter: grayscale(0);
+  }
+}
+// Footer ===============================================
+
+/* Set the fixed height of the footer here */
+#push,
+#footer {
+  height: 300px;
+}
+
+#footer {
+  padding: 20px;
+	background-color: #222;
+}
+
+#site-name {
+  color: #1687da;
+  letter-spacing: 8px;
+}
+
+.center-lead {
+  font-style: oblique;
+  color: #66da16;
+  text-align: center;
+}
+
+#conditions-footer {
+  font-size: 0.8em;
+}
+
+.bad-ruby {
+  text-align: center;
+  color: #515557;
+}
+
+#logout-btn {
+  border-color: #7796b1;
+}
+
+// Responsive styles ===========================================
+
+@media (max-width: 1110px) {
+  .search-btn {
+    position: absolute !important;
+    right: 39.6em !important;
+    top: 90px;
+    left: 365px;
+    height: 39px;
+    font-size: 15px !important;
+  }
+  .bad-ruby { display:none; }
+  .video-img {
+    display:none;
+  }
+  #yt {
+    width: 100%;
+    height: 100%;
+  }
+  #site-link-section {
+    text-align: center;
+  }
+  .suggestions {
+    background-color: #d5d5d5;
+    height: 500px;
+    overflow: auto;
+    text-align: center;
+    margin-bottom: 20px;  
+  }
+}
+
+
+

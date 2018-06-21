@@ -1,0 +1,120 @@
+<div class="row">
+    <div class="large-12 columns">
+        
+        <div id="featured-section" style="display:none">
+            <%= render("featured_content") %>
+        </div>
+        <h3 id="main-content-title">Main Content</h3>
+        <div id="tag-search">
+            <ul class="menu"><%= render 'videos/search_tag_form' %></ul>    
+        </div><br>
+        <hr>
+        <div class="videos transitions-enabled">
+            <% @videos.each do |video| %>
+                <div class="box">
+                    <% if video.site == "primewire.ag" %>
+                        <% search = Tmdb::Search.new %>
+                        <% puts "running tmdb search on: " + video.title.to_s %>
+                        <% if video.title =~ /- Season/ %>
+                            <% alt_query = video.title.split(' -').first %>
+                            <% search.resource('tv') %>
+                            <% search.query(alt_query) %>
+                        <% elsif video.category == "Game-show" || video.category == "Reality-tv" || video.category == "Talk-show" %>
+                            <% search.resource('tv') %>
+                            <% search.query(video.title) %>
+                        <% elsif video.link =~ /season/ || video.link =~ /tv-show/ %>
+                            <% search.resource('tv') %>
+                            <% search.query(video.title) %>
+                        <% else %>
+                            <% search.resource('movie') %>
+                            <% search.query(video.title) %>
+                        <% end %>
+                        <% search_response = search.fetch %>
+                        
+                        <%  if search_response.present? %>
+                            <% title = video.title %>
+                            <% object_count = search_response.count %>
+                            <% max_index = object_count -1 %>
+                            <% hash_count = (0..max_index).to_a %>
+                            <% @poster_url = [] %>
+                            <% hash_count.each do |hash| %>
+                                <% if search_response[hash].key?('title') %>
+                                    <% object = search_response[hash].fetch('title') %>
+                                    <% if object == title %>
+                                        <% poster_path = search_response[hash].fetch('poster_path') %>
+                                        <% if poster_path.present? %>
+                                            <% domain = "https://image.tmdb.org/t/p/w185" %>
+                                            <% poster = domain << poster_path.to_s %>
+                                            <% @poster_url.push(poster) %>
+                                        <% end %>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                            <% if @poster_url.present? %>
+                                <% if @poster_url.first.present? %>
+                                    <%= link_to image_tag(@poster_url.first, class: "video-img-show"), video unless @poster_url.first.blank? %>
+                                <% else %>
+                                    <% poster_url = "https://www.socabelec.co.ke/wp-content/uploads/no-photo-3.jpg" %>
+                                    <%= link_to image_tag(poster_url, class: "video-img-show"), video %>
+                                <% end %>
+                            <% else %>
+                                <% poster_url = "https://www.socabelec.co.ke/wp-content/uploads/no-photo-3.jpg" %>
+                                <%= link_to image_tag(poster_url, class: "video-img-show"), video %>
+                            <% end %>
+                        <% else %>
+                            <% poster_url = "https://www.socabelec.co.ke/wp-content/uploads/no-photo-3.jpg" %>
+                            <%= link_to image_tag(poster_url, class: "video-img-show"), video %>   
+                        <% end %>        
+                    <% else %>
+                        <% if video.img =~ /http/ %>
+                            <% video.img =~ /\s+/ ? poster = video.img.gsub(/\s+/, '') : poster = video.img %>
+                            <% response_v = HTTParty.get(poster) %>
+                            <% if response_v.success? == true %>
+                                <%= link_to image_tag(poster), video %>
+                            <% else %>
+                                <% poster_url = "https://www.socabelec.co.ke/wp-content/uploads/no-photo-3.jpg" %>
+                                <%= link_to image_tag(poster_url, class: "video-img-show"), video %>
+                            <% end %>
+                        <% else %>
+                            <% poster_url = "https://www.socabelec.co.ke/wp-content/uploads/no-photo-3.jpg" %>
+                            <%= link_to image_tag(poster_url, class: "video-img-show"), video %>
+                        <% end %>
+                    <% end %>
+                    <div class="video-body">
+                        <p class="title anton"><%= video.title %></p>
+                        <p class="genre marvel">Genre: <%= link_to video.category, videos_path(category: video.category) if video.category %></p>
+                        <p class="tags marvel">
+                            Tags: <%= raw video.tags.where.not(name: '').map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %>
+                        </p>
+                        <span class="marvel"><%= video.site %></span>
+                    </div> 
+                </div>  
+            <% end %>
+            </div>
+        </div>
+        <br>
+        <div id="pagination">
+            <%= will_paginate @videos %>
+        </div><br>
+        <hr>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        var pathname = window.location.pathname;
+        if ( pathname != "/videos" ) {
+            $('#featured-section').show(); 
+        }    
+    });
+
+    $(document).ready(function() {
+        $('#load-tags-btn').click();
+    });
+</script>
+
+
+
+
+
+

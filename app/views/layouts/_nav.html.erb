@@ -1,0 +1,96 @@
+<div class="top-bar">
+  <div class="top-bar-title">
+    <span data-responsive-toggle="responsive-menu" data-hide-for="medium">
+      <button class="menu-icon dark" type="button" data-toggle></button>
+    </span>
+    <a href="/">
+      <%= image_tag("parasite_flip.png", :size => '50x50', id: "logo-180", style: "display:none") %>
+      <%= image_tag("parasite.png", :size => '50x50', id: "logo", style: "display:none") %>
+      <strong id="site-title"><span id="first" class="fat">Para</span><span id="second" class="fat">site</span><span id="third" class="audioButton bottom-shadow">tv</span></strong>
+    </a>
+  </div>
+  <div id="#responsive-menu">
+    <div class="top-bar-left fat">
+      
+      <ul class="menu dropdown" data-dropdown-menu>
+        <li>
+          <a href="#">Genre</a>
+          <ul class="menu vertical trail-menu">
+            <% if @genres.present? %>
+              <% @genres.each do |video| %>
+                <li class="menu-item"><%= link_to video, videos_path(category: video) if video %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </li>
+        <li>
+          <%= link_to "Tags", tag_collection_path %>
+        </li>
+        <li>
+          <a href="#">Sites</a>
+          <ul class="menu vertical trail-menu">
+            <% if @sites.present? %>
+              <% @sites.each do |video| %>
+                <li class="menu-item"><%= link_to video, videos_path(site: video) if video %></li>
+              <% end %>
+            <% end %>
+          </ul>
+        </li>
+        <%= render("gcs/select_site") %>
+        <li id="featured-section-btn"><a href="/">Featured</a></li>
+      </ul>
+    </div>
+    <div class="top-bar-right">
+      <ul class="menu">
+        <%= render 'layouts/search_title_form' %>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    var pathname = window.location.pathname;   
+    if ( pathname != "/videos" ) {
+      $('#featured-section-btn').hide(); 
+    }
+  });
+</script>
+
+<script>
+  $(document).ready(function() {
+    var imageID=0;
+    function changeImage(){
+      var img1 = document.getElementById("logo");
+      var img2 = document.getElementById("logo-180");   
+      if(imageID %2 == 0){
+        img1.style.display = 'block';
+        img2.style.display = 'none';
+      }
+      else {
+        img2.style.display = 'block';
+        img1.style.display = 'none';
+      }
+      imageID++;
+    }
+
+    //call same function again for x of seconds
+    setInterval(changeImage, 2000); 
+  });
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

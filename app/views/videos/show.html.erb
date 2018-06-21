@@ -1,0 +1,266 @@
+
+<div class="show-wrapper">
+  <div class="row">
+
+    <div class="large-12 columns player-section" style="display:none">
+      <span id="embed-player"></span>
+      <span id="season-episode-select"></span>
+    </div>
+    
+    <div class="large-3 columns video-img">
+      <% if @video.site == "primewire.ag" %>
+        <% if @poster_url.present? %>
+          <% if @poster_url.first.present? %>
+            <%= image_tag(@poster_url[0], class: "video-img-show") unless @poster_url.first.blank? %>
+          <% else %>
+            <% blank_poster_url = "https://www.socabelec.co.ke/wp-content/uploads/no-photo-3.jpg" %>
+            <%= image_tag(blank_poster_url, class: "video-img-show") %>
+          <% end %>
+        <% else %>
+          <% blank_poster_url = "https://www.socabelec.co.ke/wp-content/uploads/no-photo-3.jpg" %>
+          <%= image_tag(blank_poster_url, class: "video-img-show") %>
+        <% end %>
+      <% else %>
+        <% if @video.img =~ /http/ %>
+          <% @video.img =~ /\s+/ ? poster = @video.img.gsub(/\s+/, '') : poster = @video.img %>
+          <% response_sv = HTTParty.get(poster) %>
+          <% if response_sv.success? == true %>
+            <%= image_tag(poster, class: "video-img-show") %>
+          <% else %>
+            <% blank_poster_url = "https://www.socabelec.co.ke/wp-content/uploads/no-photo-3.jpg" %>
+            <%= image_tag(blank_poster_url, class: "video-img-show") %>
+          <% end %>
+        <% else %>
+          <% blank_poster_url = "https://www.socabelec.co.ke/wp-content/uploads/no-photo-3.jpg" %>
+          <%= image_tag(blank_poster_url, class: "video-img-show") %>
+        <% end %>
+      <% end %>
+      <br><hr>
+      <div id="links-section" style="display:none">
+        <span id="video-links"></span>
+      </div>
+      <span id="video-embed-btns"></span>
+      <span id="j-init" style="display:none">fetch embeds</span>
+      <span id="loading-links" style="display:none">
+        <p id="fetching"></p>
+        <i class="fa fa-spinner fa-spin fa-5x" aria-hidden="true"></i>
+        <p>Please wait...</p>
+      </span>
+      <% if @video.site == 'primewire.ac' %>
+        <span id="links-trigger"><%= render 'embedable_logic/follow_links_trigger' %></span>
+        <span id="embed-link-trigger"><%= render 'embedable_logic/prime_ol_form' %></span>
+        <span id="embed-pol-trigger"><%= render 'embedable_logic/prime_ol_player_form' %></span>
+      <% end %>
+    </div>
+
+    <div class="large-6 columns yt-player-trailer">
+      <div id="embed-trailer">
+        <span class="loading">
+          <i class="fa fa-spinner fa-spin fa-5x" aria-hidden="true"></i>
+          <p>Loading Trailer</p>
+        </span>  
+      </div>
+      <div class="video-body-section">
+        <div id="wrong"> 
+          <span id="trail"><%= image_tag("wrong.png", size: "20x20") %></span>
+          <span id="video-data"><%= image_tag("wrong.png", size: "20x20") %></span>
+        </div>
+        <% if @video.site == 'kat.tv' %>
+          <span id="embed-trigger"><%= render 'embedable_logic/embed_trigger' %></span>
+        <% end %>
+        <% if @video.site == 'gowatchfreemovies.to' %>
+          <span id="wf2-embed-trigger"><%= render 'embedable_logic/embed_trigger_wf2' %></span>
+        <% end %>
+        <div id="self_form" style="display:none">
+          <%= render 'trailer/trail_form_self' %>
+        </div>
+        <div id="tmdb_form" style="display:none">
+          <%= render 'tmdb/tmdb_form_self' %>
+        </div>
+        <h2 id="show-title" class="anton"><%= @video.title %></h2>
+        <p>
+          <strong>Genre:</strong>
+          <span id="show-genre" class="marvel"><%= @video.category %></span>
+        </p>
+        <div id="tmdb-dynamic"></div>
+        <div id="tmdb-static">
+          <p>
+            <% if @year_m.present? %>
+              <strong>Released:</strong>
+              <span class="marvel"><%= @year_m %></span>
+            <% elsif @year_t.present? %>
+              <strong>Aired:</strong>
+              <span class="marvel"><%= @year_t %></span>
+            <% end %>
+          </p>
+          <strong>Description</strong>
+          <p>
+            <% if @description.present? %>  
+              <span class="marvel"><%= @description %></span>
+            <% else %>
+              <span class="unavailable e_desc"> -?-</span>
+            <% end %>
+          </p>
+          <p>
+            <strong>Runtime:</strong>
+            <% if @run_time.present? %>
+              <span class="marvel"><%= @run_time %> minutes</span>
+            <% else %>
+              <span class="unavailable e_runtime"> -?-</span>
+            <% end %>
+          </p>
+          <p>
+            <strong>Rating:</strong>
+            <span class="marvel"><%= @rating if @rating %> / 10</span>
+          </p>
+          <p>
+            <strong>Staring:</strong>
+            <% if @lead_actor_name.present? %>
+              <span class="marvel"><%= @lead_actor_name %></span>
+            <% else %>
+              <span class="unavailable e_name"> -?-</span>
+            <% end %>
+            <% if @lead_char_name.present? %>
+              <span class="marvel">as <%= @lead_char_name %></span>
+            <% else %>
+              <span class="unavailable e_char"> -?-</span>
+            <% end %>
+            <% if @lead_act_img_url.present? %>
+              <% if @lead_act_img_url =~ /.jpg/ %>
+                <%= image_tag(@lead_act_img_url, class: "star-img") %>
+              <% end %>
+            <% end %>
+          </p>
+        </div>
+        <p>
+          <strong>Site:</strong>
+          <span class="video-site marvel"><%= @video.site %></span>
+        </p>
+        <p>
+          <strong>Tags:</strong>
+          <span id="show-tags" class="marvel">
+            <%= raw @video.tags.where.not(name: '').map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %>
+          </span>
+        </p>
+        <hr>  
+      </div>
+    </div>
+    <p id="site-link-section">
+      <%= link_to "Watch @ " + @video.site, @video.link, target: "none", class: "button site-link movie-cursor" %>
+    </p>
+    <div class="large-3 columns suggestions">
+      <div id="suggestions-title">
+        <strong>You maybe interested in..</strong>
+      </div>
+      <% @suggestions.each do |suggestion| %>
+        <% suggestion.img =~ /\s+/ ? poster_s = suggestion.img.gsub(/\s+/, '') : poster_s = suggestion.img %>
+        <% response_sugg = HTTParty.get(poster_s) %>
+        <% if response_sugg.success? == true %>
+          <%= link_to image_tag(poster_s, class: "video-img-show"), suggestion %>
+        <% else %>
+          <%= link_to image_tag("noposter.png", :size => '220x315', class: "noposter"), suggestion %>
+        <% end %>
+        <p class="title anton"><%= suggestion.title %></p>
+      <% end %>
+    </div>
+  </div>
+</div>         
+
+<div id="form" style="display:none">
+  <%= render 'trailer/trail_form' %>
+</div>
+
+<script>
+  $(document).on('turbolinks:load', function() {
+    var video_site = $('.video-site').text();
+    var site_link = $('.site-link').attr('href');
+    if (video_site == 'kat.tv') {
+      $('input[type="text"]#embed-url-input').val(site_link);
+    }
+    if (video_site == 'gowatchfreemovies.to') {
+      $('input[type="text"]#wf2-embed-url-input').val(site_link);
+    }
+    if (video_site == 'primewire.ag') {
+      $('input[type="text"]#follow-links-input').val(site_link);
+    }
+    $('#follow-links-btn').click(function() {
+      $('#loading-links').show();
+    });
+
+    $('#j-init').button();
+    $('#j-init').click(function() {
+      if (video_site == 'primewire.ac') {
+        var links = []; 
+        $('#video-links').find('a').each(function() {
+          links.push($(this).attr('href'));     
+        });
+        var ol_links = [];
+        $.each(links, function (i, v) {
+          if (v.match(/openload.co/)) {
+            ol_links.push(v);
+          }
+        });
+        if (ol_links.length === 0) {
+          alert("Sorry no embeds found for this video");
+        } else {
+          $('input[type="text"]#prime-openload-input').val(ol_links.toString());
+          $('#prime-openload-btn').click();
+        }
+      }
+    });
+
+    $('#self-embed-btn').button();
+    $('#trail').mouseover(function() {
+      $(this).css("cursor", "pointer")
+      .attr("title", "Wrong trailer? Try search Youtube yourself. Click me, when the form renders type a query relevant to this video. Good luck!");
+    });
+    $('#trail').click(function() {
+      $('#self-embed-field').css("background-color", "#fff");
+      $('#self-embed-field').val('');
+      $('#self_form').css("display", "block");
+      $(this).hide();
+    });
+    $('#self-embed-btn').click(function() {
+      $('#self-embed-field').css("background-color", "rgb(143, 143, 143)");
+    });
+    $('#self-embed-field').click(function() {
+      $(this).css("background-color", "#fff");
+    });
+
+    $('#self-tmdb-btn').button();
+    $('#video-data').mouseover(function() {
+      $(this).css("cursor", "pointer")
+      .attr("title", "Wrong video data? Try search TMdb yourself. Click me, when the form renders type a query relevant to this video. Good luck!");
+    });
+    $('#video-data').click(function() {
+      $('#self-tmdb-field').css("background-color", "#fff");
+      $('#self-tmdb-field').val('');
+      $('#tmdb_form').css("display", "block");
+      $(this).hide();
+    });
+    $('#self-tmdb-btn').click(function() {
+      $('#self-tmdb-field').css("background-color", "rgb(143, 143, 143)");
+    });
+    $('#self-tmdb-field').click(function() {
+      $(this).css("background-color", "#fff");
+    });
+
+    var search_title = $('#show-title').text();
+    var genre_txt = $("#show-genre").text();
+    var tv_title = /- Season/
+    if (genre_txt == "Tv-series" || tv_title.test(search_title)) {
+      var query_ext = "+tv";
+    } else {
+      var query_ext = "+movie";
+    }
+    var trailer_query = search_title.concat(query_ext);
+    $('input[type="text"]#embed-field').val(trailer_query);
+
+    $('#embed-btn').click();
+  });
+</script>
+
+
+
+
+

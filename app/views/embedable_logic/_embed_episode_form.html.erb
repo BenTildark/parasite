@@ -1,0 +1,4 @@
+<%= form_tag embed_episode_path, id: "embed-episode-form", remote: true, :method => 'get' do %>
+	<span style="display:none"><%= text_field_tag :embed_episode, params[:embed_episode], id: "embed-episode-input" %></span>
+	<%= submit_tag "Embed this video", :name => nil, id: "episode-embed-btn" %>
+<% end %>

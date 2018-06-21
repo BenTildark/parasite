@@ -1,0 +1,41 @@
+<div id="sign_up">
+  <h1 class="form-title marvel">Sign Up</h1>
+  <%= form_for @user do |f| %>
+    <% if @user.errors.any? %>
+      <div class="error_messages">
+        <h2>Form is invalid</h2>
+        <ul>
+          <% @user.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :email %>
+      <%= f.text_field :email %>
+    </div>
+    <div class="field">
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
+    <div class="field">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+    <div class="field">
+      <%= recaptcha_tags %>
+    </div>
+    <div class="actions"><%= f.submit "Sign Up", class: "sub" %></div>
+  <% end %>
+</div>
+
+<script>
+  $(document).ready(function() {
+    var pathname = window.location.pathname;   
+    if ( pathname == "/signup" ) {
+      $('#signup-btn').hide(); 
+    }    
+  });
+</script>

@@ -1,0 +1,6 @@
+<%= form_tag self_tmdb_path, id: "tmdb-self-form", remote: true, :method => 'get' do %>
+	<%= text_field_tag :tmdb, params[:tmdb], id: "self-tmdb-field", placeholder: "Search TMdb" %>
+	<%= check_box_tag :resource, params[:resource], id: "check-box" %>
+	<%= label_tag(:resource, "Check me if this query is for a TV show, leave blank if movie") %>
+	<p><%= submit_tag "TMdb", :name => nil, id: "self-tmdb-btn" %></p>
+<% end %>

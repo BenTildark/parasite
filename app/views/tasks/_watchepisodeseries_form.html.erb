@@ -1,0 +1,15 @@
+<%= form_tag wes_path, id: "wes-form", remote: true, :method => 'get' do %>
+	<%= submit_tag "rake watchepisodeseries", :name => nil, id: "wes-btn" %>
+<% end %>
+
+<script>
+	$(document).ready(function() {
+		setInterval(rake_wes, 3600000);
+		function rake_wes() {
+			var hour = new Date().getHours();
+			if(hour ==== "5") {
+				$('#wes-btn').click();
+			}
+		}
+	});
+</script>

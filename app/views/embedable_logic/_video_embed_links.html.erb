@@ -1,0 +1,12 @@
+<% @x = 0 %>
+<% @embed_urls.each do |embed_url| %>
+	<span class="embed-url" src="<%= embed_url %>">Embed <%= @x += 1 %></span>
+<% end %>
+<script type="text/javascript">
+	$('.embed-url').button();
+	$('#video-embed-btns .embed-url').click(function() {
+      var src_url = $(this).attr('src');
+      $('input[type="text"]#prime-openload-player-input').val(src_url);
+      $('#prime-openload-player-btn').click();
+    });
+</script>

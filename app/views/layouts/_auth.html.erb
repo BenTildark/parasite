@@ -1,0 +1,6 @@
+<% unless logged_in? %>
+	<div id="authContainer">
+	    <%= link_to "Sign Up", signup_path, id: "signup-btn", class: "auth" %>
+		<%= link_to "Log In", login_path, id: "login-btn", class: "auth" %>		 
+	</div>
+<% end %>

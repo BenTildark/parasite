@@ -1,0 +1,71 @@
+<% if @featured.present? %>  
+    <h3 id="featured-content-title">Featured Content</h3>
+    <div id="featured-videos">
+        <div class="videos transitions-enabled">
+            <% @featured.each do |fv| %>
+                <div class="box">
+                    <% if fv.site == "primewire.ag" %>
+                        <% search = Tmdb::Search.new %>
+                        <% puts "running tmdb search on: " + fv.title.to_s %>
+                        <% if fv.title =~ /- Season/ %>
+                            <% alt_query = fv.title.split(' -').first %>
+                            <% search.resource('tv') %>
+                            <% search.query(alt_query) %>
+                        <% elsif fv.category == "Game-show" || fv.category == "Reality-tv" || fv.category == "Talk-show" %>
+                            <% search.resource('tv') %>
+                            <% search.query(fv.title) %>
+                        <% else %>
+                            <% search.resource('movie') %>
+                            <% search.query(fv.title) %>
+                        <% end %>
+                        <% search_response = search.fetch %>
+                        
+                        <%  if search_response.present? %>
+                            <% title = fv.title %>
+                            <% object_count = search_response.count %>
+                            <% max_index = object_count -1 %>
+                            <% hash_count = (0..max_index).to_a %>
+                            <% @poster_url = [] %>
+                            <% hash_count.each do |hash| %>
+                                <% object = search_response[hash].fetch('title') %>
+                                <% if object == title %>
+                                    <% poster_path = search_response[hash].fetch('poster_path') %>
+                                    <% if poster_path.present? %>
+                                        <% domain = "https://image.tmdb.org/t/p/w185" %>
+                                        <% poster = domain << poster_path.to_s %>
+                                        <% @poster_url.push(poster) %>
+                                    <% end %>
+                                <% end %>
+                            <% end %>
+                            <%= link_to image_tag(@poster_url.first, class: "video-img-show"), fv unless @poster_url.first.blank? %>
+                            <% if @poster_url.first.blank? %>
+                                <% poster_url = "https://www.socabelec.co.ke/wp-content/uploads/no-photo-3.jpg" %>
+                                <%= link_to image_tag(poster_url, class: "video-img-show"), fv %>
+                            <% end %>
+                        <% else %>
+                            <% poster_url = "https://www.socabelec.co.ke/wp-content/uploads/no-photo-3.jpg" %>
+                            <%= link_to image_tag(poster_url, class: "video-img-show"), fv %>   
+                        <% end %>        
+                    <% else %>
+                        <% fv.img =~ /\s+/ ? poster = fv.img.gsub(/\s+/, '') : poster = fv.img %>
+                        <% response_v = HTTParty.get(poster) %>
+                        <% if response_v.success? == true %>
+                            <%= link_to image_tag(poster), fv %>
+                        <% else %>
+                            <% poster_url = "https://www.socabelec.co.ke/wp-content/uploads/no-photo-3.jpg" %>
+                            <%= link_to image_tag(poster_url, class: "video-img-show"), fv %>
+                        <% end %>
+                    <% end %>
+                    <div class="video-body">
+                        <p class="title anton"><%= fv.title %></p>
+                        <p class="genre marvel">Genre: <%= link_to fv.category, videos_path(category: fv.category) if fv.category %></p>
+                        <p class="tags marvel">
+                          Tags: <%= raw fv.tags.map(&:name).map { |t| link_to t, tag_path(t) }.join(', ') %>
+                        </p>
+                        <span class="marvel"><%= fv.site %></span>
+                    </div> 
+                </div>
+            <% end %>
+        </div>
+    </div>
+<% end %>

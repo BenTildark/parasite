@@ -1,0 +1,7 @@
+<% if @method_error.present? %>
+	<span><%= @method_error %></span>   
+<% elsif @time_out.present? %>
+	<span><%= @time_out %></span>
+<% else %>
+	<iframe id="entervideo" width="1189" height="680" src="<%= @embed_url %>" frameborder="0" allowfullscreen></iframe>
+<% end %>

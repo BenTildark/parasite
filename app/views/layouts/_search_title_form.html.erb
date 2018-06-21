@@ -1,0 +1,6 @@
+<%= form_tag videos_path, :method => 'get' do %>
+	<div class="search-form-wrapper">
+		<li><%= text_field_tag :search_title, params[:search_title], id: "videos-search", autocomplete: :off, type: "search", placeholder: "Search videos by title", data: {autocomplete_source: search_title_suggestions_path} %></li>
+		<li><%= submit_tag "Title Search", class: "search-btn",  :name => nil %></li>
+	</div>
+<% end %>

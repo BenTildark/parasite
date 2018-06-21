@@ -1,0 +1,19 @@
+<% if @error.present? %>
+	<%= @error %>
+	<script type="text/javascript">
+		$('#j-init').remove();
+	</script> 
+<% elsif @timeout.present? %>
+	<%= @timeout %>
+	<script type="text/javascript">
+		$('#j-init').remove();
+	</script>
+<% else %>
+	<p id="links-count">Seeing: <%= @count %> links for this video</p>
+	<% @x = 0 %>
+	<p>Top direct links</p>
+	<% @links.each do |link| %>
+		<a href="<%= link %>", target="none">link <%= @x += 1 %></a>
+	<% end %>
+	<hr>
+<% end %>

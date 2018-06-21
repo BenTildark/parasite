@@ -1,0 +1,15 @@
+<%= form_tag kat_path, id: "kat-form", remote: true, :method => 'get' do %>
+	<%= submit_tag "rake kat", :name => nil, id: "kat-btn" %>
+<% end %>
+
+<script>
+	$(document).ready(function() {
+		setInterval(rake_kat, 3600000);
+		function rake_kat() {
+			var hour = new Date().getHours();
+			if(hour === "3") {
+				$('#kat-btn').click();
+			}
+		}
+	});
+</script>

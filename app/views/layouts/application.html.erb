@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title><%= content_for?(:title) ? yield(:title) : "Parasite TV & Movies" %></title>
+    <%= favicon_link_tag("search_favicon.png", alt: "search, watch, movies, tv, video") %>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css?family=Anton|Marvel|Sigmar+One" rel="stylesheet">
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= render 'layouts/nav' %>
+
+    <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, id: "flash_#{name}" %>
+    <% end %>
+
+    <div id="wrap">
+      <%= render 'layouts/auth' %>
+      <%= yield %>
+      <div id="push"></div>
+    </div>
+      
+    <%= render 'layouts/footer' %>
+
+    <%= audio_tag "meep_meep.mp3", class: "audio-play" %>
+    <script type="text/javascript">
+      $(document).on("ready page:change", function() {
+        $(".audioButton").on("mouseover", function() {
+          $(".audio-play")[0].currentTime = 0;
+          return $(".audio-play")[0].play();
+        });
+      })
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready( function () {
+        $(".auth").button();
+        $(".sub").button();
+        $(".search-tags-btn").button();
+        $("#player-embed-btn").button();
+        $("#wf2-player-embed-btn").button();
+      });
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        change: function() {
+          if($('#gcs-links').val() != '') {
+            window.location = $(this).val();
+          }
+        }
+      });
+    </script>
+
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('.unavailable').mouseover().css('cursor', 'help');
+        $('.e_desc').attr("title", "Sorry no description available for this video");
+        $('.e_runtime').attr("title", "Sorry no run time available for this video");
+        $('.e_name').attr("title", "Sorry no star name available for this video");
+        $('.e_char').attr("title", "Sorry no character name available for this video");
+        $('.search-btn').button();
+        $("[title]").tooltip({ track: true });
+        $('.menu-item').menu();
+      });
+    </script>
+  </body>
+</html>
